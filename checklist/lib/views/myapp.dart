@@ -11,6 +11,8 @@ class MyApp extends StatelessWidget {
     CheckBoxModel(texto: 'Júnior'),
   ];
 
+  MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,23 +22,20 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: ListView.builder(
-          itemCount: itens.length,
-          itemBuilder: (_, int index) {
-            return CheckBoxWidget(item: itens[index]);
-          },
+        appBar: AppBar(
+          title: const Text('CheckList'),
         ),
-        floatingActionButton: FloatingActionButton(
-            child: Icon(Icons.apps), onPressed: listarApenasMarcados),
+        // ignore: avoid_unnecessary_containers
+        body: Container(
+          color: Colors.grey,
+          child: ListView.builder(
+            itemCount: itens.length,
+            itemBuilder: (_, int index) {
+              return CheckBoxWidget(item: itens[index]);
+            },
+          ),
+        ),
       ),
     );
-  }
-
-  void listarApenasMarcados() {
-    List<CheckBoxModel> itensMarcados =
-        List.from(itens.where((item) => item.checked));
-    itensMarcados.forEach((item) {
-      print(item.texto);
-    });
   }
 }
